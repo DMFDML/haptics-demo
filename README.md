@@ -50,5 +50,3 @@ A C# script that controls the behavior of a drill chuck in the Unity scene. It c
 - The port used for the socket communication is 12345 (using the local loopback IP address). This port can be changed.
 - Multiple ports can be used to stream input from multiple buttons.
 - When the Unity demo is stopped, the Python socket should stop as well. It's recommended to open the Python socket first and then launch the Unity application.
-
-Feel free to customize the scripts, adjust the behavior, and integrate the touch sensor input into your own projects.
