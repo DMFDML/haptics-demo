@@ -1,35 +1,40 @@
-using UnityEngine;
+using UnityEngine; // Access Unity API
 
-public class Button1Controller : MonoBehaviour
+public class Button1Controller : MonoBehaviour // Inherit from MonoBehaviour
 {
+    // Assign these in the Inspector
     public Transform chuckTransform;
-    public Material activeMaterial; // Assign this in the Inspector
-    public Material originalMaterial; // Assign this in the Inspector
+    public Material activeMaterial;
+    public Material originalMaterial;
 
-    private bool button1Activated = false;
-    private Renderer chuckRenderer;
+    // Private variables
+    private bool button1Activated = false; // Button 1 state
+    private Renderer chuckRenderer; // Chuck renderer component
 
-    private void Start()
+    private void Start() // Start is called before the first frame update
     {
+        // Get the chuck renderer component
         chuckRenderer = chuckTransform.GetComponent<Renderer>();
     }
 
-    private void Update()
+    private void Update() // Update is called once per frame
     {
-        if (button1Activated)
+        if (button1Activated) // IF BUTTON 1 IS ACTIVATED
         {
-            // Button 1 is activated, change the material to activeMaterial
+            // %%%%% ADD YOUR CODE HERE %%%%%
+            // e.g: Button 1 is activated, change material to activeMaterial
             chuckRenderer.material = activeMaterial;
         }
-        else
+        else // IF BUTTON 1 IS DEACTIVATED
         {
-            // Button 1 is deactivated, revert the material to originalMaterial
+            // %%%%% ADD YOUR CODE HERE %%%%%
+            // e.g: Button 1 is deactivated, revert material to originalMaterial
             chuckRenderer.material = originalMaterial;
         }
     }
 
-    public void SetButtonState(bool activated)
+    public void SetButtonState(bool activated) // Set the button state
     {
-        button1Activated = activated;
+        button1Activated = activated; // Set the button state
     }
 }

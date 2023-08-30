@@ -10,6 +10,7 @@ The `Python Socket` directory includes the following files:
 - `TouchSensorSocket.exe`: An executable compiled from `TouchSensorSocket.py` script.
 - `TouchSensorSocket.py`: Python script that creates a socket server to read touch sensor input and send it to the Unity application.
 - `TouchSensorSocket_COM5_9600.py`: As above, however sets default values for COM port (COM5) and baud rate (9600).
+- `read_serial_func.py`: Python script with the read_serial_func() function used in all the above scripts that reads serial input from a bluetooth COM port. If run directly it will print to the data stream to the console.
 
 ### Finding the Bluetooth COM Port (Windows)
 

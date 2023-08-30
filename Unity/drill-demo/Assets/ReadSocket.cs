@@ -1,65 +1,79 @@
-using UnityEngine;
-using System;
-using System.Net.Sockets;
-using System.Threading;
+using UnityEngine; // Access Unity API
+using System; // Fundamental .NET API
+using System.Net.Sockets; // Access .NET socket API
+using System.Threading; // Access .NET threading API
 
-public class ReadSocket : MonoBehaviour
+// This script reads data from a bluetooth TCP socket and prints it to the
+// console
+
+public class ReadSocket : MonoBehaviour // Inherit from MonoBehaviour
 {
     private const string serverIP = "127.0.0.1"; // Use localhost IP
-    private const int serverPort = 12345;       // Use the same port as the server
+    private const int serverPort = 12345;       // Use the same port as the ...
+    // server
 
-    private TcpClient client;
-    private NetworkStream stream;
-    private byte[] dataBuffer = new byte[1];
+    private TcpClient client; // TCP client object
+    private NetworkStream stream; // Network stream object
+    private byte[] dataBuffer = new byte[1]; // Buffer to store received data
 
-    private Button1Controller button1Controller; // Reference to the Button1Controller script
+    private Button1Controller button1Controller; // Reference to the ...
+    // Button1Controller script
 
+    // Start is called before the first frame update
     private void Start()
     {
-        ConnectToServer();
-        button1Controller = GameObject.Find("Chuck").GetComponent<Button1Controller>();
+        ConnectToServer(); // Connect to the server
+        button1Controller = 
+            GameObject.Find("Chuck").GetComponent<Button1Controller>();
+        // Get a reference to the Button1Controller script
     }
 
+    // Connect to the server
     private void ConnectToServer()
     {
-        try
+        try // Try to connect to the server
         {
-            client = new TcpClient(serverIP, serverPort);
-            stream = client.GetStream();
-            Debug.Log("Connected to server");
+            client = new TcpClient(serverIP, serverPort); // Create a TCP ...
+            // client object
+            stream = client.GetStream(); // Get the network stream object
+            Debug.Log("Connected to server"); // Log a message
 
-            Thread receiveThread = new Thread(ReceiveData);
-            receiveThread.Start();
+            Thread receiveThread = new Thread(ReceiveData); // Create a ...
+            // thread to receive data
+            receiveThread.Start(); // Start the thread
         }
-        catch (Exception e)
+        catch (Exception e) // Catch any exceptions
         {
-            Debug.LogError($"Socket error: {e}");
+            Debug.LogError($"Socket error: {e}"); // Log the exception
         }
     }
 
+    // Receive data from the server
     private void ReceiveData()
     {
-        try
+        try // Try to receive data
         {
-            while (true)
+            while (true) // Loop forever
             {
+                // Read data from the network stream
                 int bytesRead = stream.Read(dataBuffer, 0, dataBuffer.Length);
-                if (bytesRead > 0)
+                if (bytesRead > 0) // If data was received
                 {
                     int receivedValue = dataBuffer[0]; // Convert byte to int
+                    // Log the received value
                     button1Controller.SetButtonState(receivedValue == 1);
                 }
             }
         }
-        catch (Exception e)
+        catch (Exception e) // Catch any exceptions
         {
-            Debug.LogError($"Receive error: {e}");
+            Debug.LogError($"Receive error: {e}"); // Log the exception
         }
     }
 
-    private void OnDestroy()
+    private void OnDestroy() // Called when the game object is destroyed
     {
-        stream?.Close();
-        client?.Close();
+        stream?.Close(); // Close the network stream
+        client?.Close(); // Close the TCP client
     }
 }
